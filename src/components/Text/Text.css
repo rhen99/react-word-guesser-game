@@ -1,0 +1,16 @@
+.Text {
+  margin: 5rem 0 2rem 0;
+}
+.ShuffledWord {
+  font-size: 40px;
+  text-align: center;
+  font-weight: 400;
+}
+.ScoreBoard {
+  text-align: center;
+  padding-top: 2rem;
+}
+.ScoreBoard span {
+  margin: 2rem;
+  font-weight: 500;
+}

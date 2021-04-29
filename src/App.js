@@ -1,24 +1,56 @@
-import logo from './logo.svg';
-import './App.css';
+import { useState, useEffect } from 'react'
+import Header from './components/Header/Header';
+import Text from './components/Text/Text';
+import Word from './components/Word/Word';
 
+import "./App.css";
 function App() {
+  const [gameOn, setGameOn] = useState(false);
+  const [words] = useState([
+    'word',
+    'bicycle',
+    'vehicle',
+    'basketball',
+    'vase',
+    'plant',
+    'flower',
+    'dirt',
+    'flute'
+  ]);
+  const [currentWord, setCurrentWord] = useState(null);
+
+  const getRandomWord = () => {
+    const randomIndex = Math.floor(Math.random() * words.length);
+    setCurrentWord(words[randomIndex]);
+
+
+  }
+  const checkIfMatch = (value) => {
+    if(!currentWord) return;
+    if(currentWord === value) {
+      getRandomWord();
+      return true;
+    }
+    return false
+  }
+  useEffect(() => {
+    getRandomWord();
+  }, []);
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <>
+    <Header/>
+    {gameOn
+    ? <Text currentWord={currentWord}/>
+    : <h1 className="GameStartHeading">Welcome To LAGS Word Guesser</h1>}
+    {gameOn
+    ? <Word checkIfMatch={checkIfMatch}/>
+    : (
+      <div className="Start">
+        <button className="Btn">Start Game</button>
+      </div>
+    )}
+    </>
   );
 }
 
