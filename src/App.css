@@ -4,3 +4,25 @@
   font-size: 40px;
   font-weight: 400;
 }
+.Start {
+  text-align: center;
+}
+.Btn {
+  font-size: 20px;
+  padding: 0.5rem 1rem;
+  border: none;
+  background-color: #87ceeb;
+  cursor: pointer;
+  border-radius: 3px;
+}
+.Btn:hover {
+  background-color: #51bae4;
+}
+.Btn:active {
+  transform: scale(0.9);
+}
+@media (max-width: 750px) {
+  .GameStartHeading {
+    font-size: 24px;
+  }
+}

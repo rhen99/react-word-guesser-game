@@ -1,27 +1,17 @@
 import "./Text.css"
-function Text({currentWord}) {
-    const shuffledWord = word => {
-        const splittedWord = word.split('');
-
-        let wordLength = splittedWord.length, randomIndex, tempValue;
-
-        while(wordLength){
-            
-            randomIndex = Math.floor(Math.random() * wordLength--);
-
-            tempValue = splittedWord[wordLength];
-            splittedWord[wordLength] = splittedWord[randomIndex];
-            splittedWord[randomIndex] = tempValue;
-        }
-        return splittedWord.join("");
+function Text({word, time, score}) {
+    
+    
+    const convertToSeconds = (milliseconds) => {
+        return  ((milliseconds % 60000) / 1000).toFixed(0);
     }
     return (
         <section className="Text">
             <div className="container">
-                <h1 className="ShuffledWord">{currentWord && shuffledWord(currentWord)}</h1>
+                <h1 className="ShuffledWord">{word}</h1>
                 <p className="ScoreBoard">
-                    <span className="Score">Score: 0</span>
-                    <span className="Time">Time: 0</span>
+                    <span className="Score">Score: {score}</span>
+                    <span className="Time">Time: {convertToSeconds(time)}</span>
                 </p>
             </div>
         </section>

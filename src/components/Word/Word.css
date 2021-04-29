@@ -16,3 +16,18 @@
   outline: 0;
   box-shadow: 0 0 0 1px #87ceeb;
 }
+.GameOver {
+  text-align: center;
+  animation: fading 1s ease-out 1s infinite;
+  margin: 1rem 0;
+}
+@keyframes fading {
+  to {
+    opacity: 0;
+  }
+}
+@media (max-width: 750px) {
+  .Input {
+    width: 100%;
+  }
+}
