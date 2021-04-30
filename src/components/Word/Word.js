@@ -1,9 +1,10 @@
 import './Word.css';
-function Word({checkIfMatch, plusScore, isOver, restart}) {
+function Word({checkIfMatch, plusScore, isOver, restart, plusTime}) {
     const handleChange = (e) => {
         if(checkIfMatch(e.target.value)){
             e.target.value = '';
             plusScore();
+            plusTime();
         }
         
     }

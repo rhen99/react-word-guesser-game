@@ -1,5 +1,5 @@
 import "./Text.css"
-function Text({word, time, score}) {
+function Text({word, time, score, hint}) {
     
     
     const convertToSeconds = (milliseconds) => {
@@ -9,6 +9,7 @@ function Text({word, time, score}) {
         <section className="Text">
             <div className="container">
                 <h1 className="ShuffledWord">{word}</h1>
+                <p className="Hint"><span>Small Hint: </span>{hint}</p>
                 <p className="ScoreBoard">
                     <span className="Score">Score: {score}</span>
                     <span className="Time">Time: {convertToSeconds(time)}</span>
