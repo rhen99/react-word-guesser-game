@@ -1,10 +1,18 @@
-import { useState, useEffect, useRef } from 'react'
+import { useState, useEffect, useRef } from 'react';
+import { BrowserRouter as Router, Switch} from 'react-router-dom';
+import ProtectedRoute from './components/ProtectedRoute/ProtectedRoute';
+import GuestRoute from './components/GuestRoute/GuestRoute';
+
+import AuthProvider from './context/AuthProvider';
 import Header from './components/Header/Header';
 import Text from './components/Text/Text';
 import Word from './components/Word/Word';
+import Register from './components/Register/Register';
+import Login from './components/Login/Login';
 import correct from './sfx/correct.mp3';
 
 import "./App.css";
+
 function App() {
   const interval = useRef();
   const correctRef = useRef();
@@ -127,22 +135,34 @@ function App() {
     return () => clearInterval(interval.current);
   }, [isRunning, time]);
   return (
-    <>
-    <Header/>
-    {gameOn
-    ? <Text word={displayWord} hint={hint} time={time} score={score}/>
-    : <h1 className="GameStartHeading">Welcome To LAGS Word Guesser</h1>}
-    {gameOn
-    ? <Word checkIfMatch={checkIfMatch} plusTime={plusTime} plusScore={plusScore} isOver={isOver} restart={restart}/>
-    : (
-      <div className="Start">
-        <button className="Btn" onClick={startGame}>Start Game</button>
-      </div>
-    )}
-    <audio ref={correctRef}>
-      <source src={correct} type="audio/mpeg"></source>
-    </audio>
-    </>
+    <Router>
+      <AuthProvider>
+      <Header/>
+      <Switch>
+        <ProtectedRoute path="/" exact>
+        {gameOn
+      ? <Text word={displayWord} hint={hint} time={time} score={score}/>
+      : <h1 className="GameStartHeading">Welcome To LAGS Word Guesser</h1>}
+      {gameOn
+      ? <Word checkIfMatch={checkIfMatch} plusTime={plusTime} plusScore={plusScore} isOver={isOver} restart={restart}/>
+      : (
+        <div className="Start">
+          <button className="Btn" onClick={startGame}>Start Game</button>
+        </div>
+      )}
+      <audio ref={correctRef}>
+        <source src={correct} type="audio/mpeg"></source>
+      </audio>
+      </ProtectedRoute>
+      <GuestRoute path="/login" exact>
+        <Login/>
+      </GuestRoute>
+      <GuestRoute path="/register" exact>
+        <Register/>
+      </GuestRoute>
+      </Switch>
+    </AuthProvider>
+    </Router>
   );
 }
 

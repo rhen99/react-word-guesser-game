@@ -13,8 +13,10 @@
   caret-color: #87ceeb;
 }
 .Input:focus {
-  outline: 0;
-  box-shadow: 0 0 0 1px #87ceeb;
+  outline: none;
+  border-color: #87ceeb;
+  box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075),
+    0 0 8px rgba(135, 206, 235, 0.6);
 }
 .GameOver {
   text-align: center;

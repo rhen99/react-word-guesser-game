@@ -1,9 +1,18 @@
-import "./Header.css"
+import "./Header.css";
+import { Link } from 'react-router-dom'
 function Header() {
     return (
         <header className="Header">
-           <div className="container">
-               <h3 className="Title">LAGS Word Guesser</h3>
+           <div className="container HeaderContainer">
+               <div className="Brand">
+                   <Link to="/" className="Title">LAGS Word Guesser</Link>
+               </div>
+               <div className="Navigation">
+                   <ul className="NavList">
+                       <li className="NavItem"><Link to="/login" className="NavLink">Login</Link></li>
+                       <li className="NavItem"><Link to="/register" className="NavLink">Register</Link></li>
+                   </ul>
+               </div>
            </div> 
         </header>
     )
