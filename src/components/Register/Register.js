@@ -1,13 +1,11 @@
 import { useState, useContext } from 'react';
 import { AuthContext } from '../../context/AuthProvider';
-import { useHistory } from 'react-router-dom'
-import { db } from '../../firebase'
+import { db } from '../../firebase';
 
 import "./Register.css"
 function Register() {
     const [user, setUser] = useState({
         email: '',
-        username: '',
         password: '',
         confirm_password: ''
     });
@@ -15,14 +13,12 @@ function Register() {
     const [error, setError] = useState(null);
     const { signup } = useContext(AuthContext);
 
-    const history = useHistory();
-
     const changeInput = (e) => setUser({...user, [e.target.name]: e.target.value});
     const handleSubmit = (e) => {
         e.preventDefault();
         setError('');
         setLoading(true);
-        if(!user.username || !user.email || !user.password){
+        if(!user.email || !user.password){
             setLoading(false);
             setError('Please fill in all fields.');
             return
@@ -33,33 +29,20 @@ function Register() {
             setError('Password does not match.');
             return
         }
-        const docRef = db.collection('users').doc(user.username);
-
-        docRef.get()
-        .then((doc) => {
-            if(doc.exists){
-                setLoading(false);
-                setError('This username is already taken.');
-            }else{
-                signup(user)
-                .then(() => {
+        signup(user)
+                .then((res) => {
                     setLoading(false);
-                    db.collection('users').doc(user.username).set({
-                        email: user.email,
-                        highscore: 0
+                    db.collection('users').doc(res.user.email).set({
+                        handleName: "Player",
+                        highscore: 0,
                     })
-                    .then(() => console.log("User Successfully Added"))
-                    .catch(err => console.log(err));
-                    history.push('/');
-
+                    .then(() => window.location.reload())
+                    .catch(err => setError(err.message))
                 })
                 .catch(err => {
                     setLoading(false);
                     setError(err.message);
                 })
-            }
-        })
-        .catch(err => console.log(err));
     }
     return (
         <section className="Register">
@@ -71,11 +54,6 @@ function Register() {
                             <p>{error}</p>
                         </div>
                     )}
-
-                    <div className="FormGroup">
-                        <label>Username</label>
-                        <input type="text" name="username" className="FormInput" onChange={changeInput}/>
-                    </div>
                     <div className="FormGroup">
                         <label>Email</label>
                         <input type="email" name="email" className="FormInput" onChange={changeInput}/>

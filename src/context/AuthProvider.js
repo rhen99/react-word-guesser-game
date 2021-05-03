@@ -3,36 +3,33 @@ import { auth } from '../firebase';
 export const AuthContext = createContext();
 function AuthProvider({children}) {
     const [currentUser, setCurrentUser] = useState(null);
-    const [loading, setLoading] = useState(true);
     
-    const signup = user => {
-        return auth.createUserWithEmailAndPassword(user.email, user.password);
-    }
-    const login = user => {
-        return auth.signInWithEmailAndPassword(user.email, user.password);
-    }
+    const signup = user => auth.createUserWithEmailAndPassword(user.email, user.password);
+    const login = user => auth.signInWithEmailAndPassword(user.email, user.password);
+
+    const logout = () => auth.signOut();
 
     const value = {
         currentUser,
         signup,
-        login
+        login,
+        logout
     };
     useEffect(() => {
         const unsubscribe = auth.onAuthStateChanged((user) => {
-            setLoading(false);
             if(user){
                 setCurrentUser(user)
-                localStorage.setItem('isAuthenticated', true);
+                localStorage.setItem('isAuthenticated', user.refreshToken);
             }else{
                 setCurrentUser(null);
                 localStorage.removeItem('isAuthenticated');
             }
         });
         return unsubscribe;
-    })
+    }, [])
     return (
         <AuthContext.Provider value={value}>
-            {!loading && children}
+            {children}
         </AuthContext.Provider>
     )
 }

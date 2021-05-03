@@ -8,10 +8,12 @@ function Header() {
                    <Link to="/" className="Title">LAGS Word Guesser</Link>
                </div>
                <div className="Navigation">
-                   <ul className="NavList">
+                   {!localStorage.getItem('isAuthenticated') && (
+                    <ul className="NavList">
                        <li className="NavItem"><Link to="/login" className="NavLink">Login</Link></li>
                        <li className="NavItem"><Link to="/register" className="NavLink">Register</Link></li>
                    </ul>
+                   )}
                </div>
            </div> 
         </header>

@@ -1,6 +1,5 @@
 import {AuthContext} from '../../context/AuthProvider';
 import { useState, useContext } from 'react';
-import { useHistory } from 'react-router-dom';
 function Login() {
     const [user, setUser] = useState({
         email: '',
@@ -11,8 +10,6 @@ function Login() {
 
     
     const { login } = useContext(AuthContext)
-
-    const history = useHistory();
 
     const handleSubmit = (e) => {
         e.preventDefault();
@@ -27,7 +24,7 @@ function Login() {
         login(user)
         .then(() => {
             setLoading(false);
-            history.push('/');
+            window.location.reload();
         })
         .catch((err) => {
             setLoading(false);
