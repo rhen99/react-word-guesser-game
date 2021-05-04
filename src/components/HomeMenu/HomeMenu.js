@@ -1,4 +1,5 @@
 import { useContext } from 'react';
+import { Link } from 'react-router-dom';
 import {AuthContext} from '../../context/AuthProvider';
 function HomeMenu({startGame}) {
     const { logout } = useContext(AuthContext);
@@ -14,7 +15,7 @@ function HomeMenu({startGame}) {
             <button className="Btn" onClick={startGame}>Start Game</button>
           </div>
           <div>
-            <button className="Btn">Leaderboard</button>
+            <Link className="Btn" to="/leaderboard">Leaderboard</Link>
           </div>
           <div>
             <button className="Btn" onClick={handleLogOut}>Log Out</button>

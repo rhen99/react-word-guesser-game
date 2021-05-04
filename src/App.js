@@ -15,6 +15,7 @@ import correct from './sfx/correct.mp3';
 
 import "./App.css";
 import HomeMenu from './components/HomeMenu/HomeMenu';
+import Leaderboard from './components/Leaderboard/Leaderboard';
 
 function App() {
 
@@ -120,7 +121,7 @@ function App() {
     setGameOn(true);
     setIsRunning(true);
     setScore(0);
-    setTime(10000);
+    setTime(20000);
     getRandomWord();
   }
 
@@ -149,7 +150,7 @@ function App() {
         <>
           <Text word={displayWord} hint={hint} time={time} score={score}/>
           
-          <Word checkIfMatch={checkIfMatch} plusTime={plusTime} plusScore={plusScore} isOver={isOver} restart={restart}/>
+          <Word checkIfMatch={checkIfMatch} plusTime={plusTime} plusScore={plusScore} isOver={isOver} score={score} restart={restart}/>
         </>
       )
       : (
@@ -162,6 +163,9 @@ function App() {
       <audio ref={correctRef}>
         <source src={correct} type="audio/mpeg"></source>
       </audio>
+      </ProtectedRoute>
+      <ProtectedRoute path="/leaderboard" exact>
+        <Leaderboard/>
       </ProtectedRoute>
       <GuestRoute path="/login" exact>
         <Login/>

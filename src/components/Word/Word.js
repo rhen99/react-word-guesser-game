@@ -1,7 +1,12 @@
-import { useContext } from 'react';
+import { useContext, useEffect, useState } from 'react';
+import {Link} from 'react-router-dom'
 import { AuthContext } from '../../context/AuthProvider';
 import './Word.css';
-function Word({checkIfMatch, plusScore, isOver, restart, plusTime}) {
+function Word({checkIfMatch, plusScore, isOver, restart, plusTime, score}) {
+    const { logout, updateUserData, userData, currentUser, getStandings } = useContext(AuthContext);
+
+    const [highscore, setHighscore] = useState(`Highest Score: ${userData.highscore}`)
+
     const handleChange = (e) => {
         if(checkIfMatch(e.target.value)){
             e.target.value = '';
@@ -9,7 +14,7 @@ function Word({checkIfMatch, plusScore, isOver, restart, plusTime}) {
             plusTime();
         }
     }
-    const { logout } = useContext(AuthContext);
+    
 
     const handleLogOut = (e) => {
         e.preventDefault();
@@ -18,19 +23,28 @@ function Word({checkIfMatch, plusScore, isOver, restart, plusTime}) {
         .catch(err => console.log(err.message));
     }
 
+    useEffect(() => {
+        if(isOver){
+            if(score > userData.highscore){
+                updateUserData(currentUser.email, 'highscore', score);
+                setHighscore(`New Highest Score: ${score}`);
+                getStandings();
+            }
+        }
+    }, [isOver, currentUser, score, updateUserData, userData.highscore, getStandings])
     return (
         <section className="Word">
             <div className="container">
                 {isOver 
                 ? (
                     <>
-                        <h2 className="GameOver">TIME'S UP!!!</h2>
+                        <h2 className="GameOver">{highscore}</h2>
                         <div className="Menu">
                             <div>
                                 <button className="Btn" onClick={restart}>Restart Game</button>
                             </div>
                             <div>
-                                <button className="Btn">Leaderboard</button>
+                                <Link to="/leaderboard" className="Btn">Leaderboard</Link>
                             </div>
                             <div>
                                 <button className="Btn" onClick={handleLogOut}>Log Out</button>
@@ -39,9 +53,12 @@ function Word({checkIfMatch, plusScore, isOver, restart, plusTime}) {
                     </>
                 )
                 : (
+                    <>
                     <div className="TextInput">
                         <input type="text" className="Input" onChange={handleChange} autoFocus placeholder="Enter word here..."/>
                     </div>
+                    <p className="HighScore">{highscore}</p>
+                    </>
                 )}
             </div>
         </section>

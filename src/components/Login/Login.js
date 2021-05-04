@@ -23,8 +23,8 @@ function Login() {
         }
         login(user)
         .then(() => {
-            setLoading(false);
             window.location.reload();
+            setLoading(false);
         })
         .catch((err) => {
             setLoading(false);

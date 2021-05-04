@@ -23,6 +23,9 @@
   animation: fading 1s ease-out 1s infinite;
   margin: 1rem 0;
 }
+.HighScore {
+  text-align: center;
+}
 @keyframes fading {
   to {
     opacity: 0;

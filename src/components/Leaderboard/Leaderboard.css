@@ -1,0 +1,18 @@
+.LeaderboardTitle {
+  font-weight: 400;
+  margin: 1rem 0;
+}
+.UserHeadings,
+.UserStanding {
+  display: flex;
+  padding: 1rem 0;
+}
+.UserHeadings span {
+  flex: 1;
+  font-size: 20px;
+  font-weight: 400;
+}
+.UserStanding span {
+  flex: 1;
+  font-size: 16px;
+}
