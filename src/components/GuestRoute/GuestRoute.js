@@ -7,7 +7,7 @@ function GuestRoute(props) {
         </Route>
         )
     }else{
-        return <Redirect to="/"/>
+        return <Redirect to="/" exact/>
     }
 }
 
