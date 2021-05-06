@@ -1,0 +1,13 @@
+.Spinner {
+  width: 30px;
+  height: 30px;
+  border: 3px solid #333;
+  border-top-color: #87ceeb;
+  border-radius: 50%;
+  animation: rotate 500ms linear infinite;
+}
+@keyframes rotate {
+  to {
+    transform: rotate(360deg);
+  }
+}

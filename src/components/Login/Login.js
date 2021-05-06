@@ -1,6 +1,7 @@
 import {AuthContext} from '../../context/AuthProvider';
 import { useState, useContext } from 'react';
 import { Link } from 'react-router-dom';
+import Spinner from '../Spinner/Spinner';
 function Login() {
     const [user, setUser] = useState({
         email: '',
@@ -25,7 +26,6 @@ function Login() {
         login(user)
         .then(() => {
             window.location.reload();
-            setLoading(false);
         })
         .catch((err) => {
             setLoading(false);
@@ -39,7 +39,13 @@ function Login() {
     return (
         <section className="Register">
             <div className="container FormContainer">
-                <form className="Form" onSubmit={handleSubmit}>
+                
+                {loading ? (
+                    <div className="Loading">
+                        <Spinner/>
+                    </div>
+                ) : (
+                    <form className="Form" onSubmit={handleSubmit}>
                     <h1 className="FormTitle">Log In Your Account</h1>    
                     {error && (
                         <div className="AlertError">
@@ -56,10 +62,11 @@ function Login() {
                     </div>
                     
                     <div className="FormGroup">
-                        {!loading && <button className="Btn BtnBlock" type="submit">Log In</button>}
+                        <button className="Btn BtnBlock" type="submit">Log In</button>
                         <p className="Redirect"><Link to="/register">Create an account</Link></p>
                     </div>
                 </form>
+                )}
                 
             </div>
         </section>

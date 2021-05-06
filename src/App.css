@@ -88,6 +88,9 @@
 .Redirect a:hover {
   text-decoration: underline;
 }
+.Loading {
+  padding: 2rem 0;
+}
 @media (max-width: 750px) {
   .GameStartHeading {
     font-size: 24px;

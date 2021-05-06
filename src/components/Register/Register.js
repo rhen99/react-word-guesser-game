@@ -1,8 +1,8 @@
 import { useState, useContext } from 'react';
 import { AuthContext } from '../../context/AuthProvider';
 import { db } from '../../firebase';
-import { Link } from 'react-router-dom'
-
+import { Link } from 'react-router-dom';
+import Spinner from '../Spinner/Spinner';
 import "./Register.css"
 function Register() {
     const [user, setUser] = useState({
@@ -32,7 +32,6 @@ function Register() {
         }
         signup(user)
                 .then((res) => {
-                    setLoading(false);
                     db.collection('users').doc(res.user.email).set({
                         handleName: "Player",
                         highscore: 0,
@@ -48,7 +47,12 @@ function Register() {
     return (
         <section className="Register">
             <div className="container FormContainer">
-                <form className="Form" onSubmit={handleSubmit}>
+                {loading ? (
+                    <div className="Loading">
+                        <Spinner/>
+                    </div>
+                ) : (
+                    <form className="Form" onSubmit={handleSubmit}>
                     <h1 className="FormTitle">Create An Account</h1>
                     {error && (
                         <div className="AlertError">
@@ -72,6 +76,8 @@ function Register() {
                     </div>
                     <p className="Redirect"><Link to="/login">Login With Your Account</Link></p>
                 </form>
+                )}
+                
             </div>
         </section>
     )
