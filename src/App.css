@@ -82,6 +82,12 @@
   color: #ff0000;
   padding: 1rem;
 }
+.Redirect {
+  text-align: center;
+}
+.Redirect a:hover {
+  text-decoration: underline;
+}
 @media (max-width: 750px) {
   .GameStartHeading {
     font-size: 24px;

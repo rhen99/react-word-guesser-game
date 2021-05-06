@@ -1,6 +1,7 @@
 import { useState, useContext } from 'react';
 import { AuthContext } from '../../context/AuthProvider';
 import { db } from '../../firebase';
+import { Link } from 'react-router-dom'
 
 import "./Register.css"
 function Register() {
@@ -69,6 +70,7 @@ function Register() {
                     <div className="FormGroup">
                         {!loading && <button className="Btn BtnBlock" type="submit">Sign Up</button>}
                     </div>
+                    <p className="Redirect"><Link to="/login">Login With Your Account</Link></p>
                 </form>
             </div>
         </section>

@@ -1,5 +1,6 @@
 import {AuthContext} from '../../context/AuthProvider';
 import { useState, useContext } from 'react';
+import { Link } from 'react-router-dom';
 function Login() {
     const [user, setUser] = useState({
         email: '',
@@ -56,8 +57,10 @@ function Login() {
                     
                     <div className="FormGroup">
                         {!loading && <button className="Btn BtnBlock" type="submit">Log In</button>}
+                        <p className="Redirect"><Link to="/register">Create an account</Link></p>
                     </div>
                 </form>
+                
             </div>
         </section>
     )
